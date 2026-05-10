@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surface Defect Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Surface Defect Classification</h1>
+
+    <form id="uploadForm">
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    <img id="preview" style="display:none;">
+
+    <div id="result"></div>
+</div>
+
+<script>
+    const form = document.getElementById("uploadForm");
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+    const result = document.getElementById("result");
+
+    imageInput.addEventListener("change", () => {
+        const file = imageInput.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = "block";
+        }
+    });
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const file = imageInput.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        result.innerHTML = "Predicting...";
+
+        const response = await fetch("/predict", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        result.innerHTML = `
+            <h2>Result</h2>
+            <p><strong>Predicted Class:</strong> ${data.predicted_class}</p>
+            <p><strong>Confidence:</strong> ${data.confidence}%</p>
+        `;
+    });
+</script>
+
+</body>
+</html>
