@@ -528,12 +528,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-**Basmala Azab Mohamed**
-- GitHub: [@basmalaazabmohamed-commits](https://github.com/basmalaazabmohamed-commits)
+**Basmala Azab Mohamed & Yousef Amr Elbish**
+- GitHub: [@basmalaazabmohamed-commits](https://github.com/basmalaazabmohamed-commits) / [@elbish1](https://github.com/elbish1)
 - Project: [surface-defect-fastapi](https://github.com/basmalaazabmohamed-commits/surface-defect-fastapi)
 
 ---
 
 <p align="center">
-  Made with ❤️ and ☕ by Basmala Azab Mohamed
+  Made with ❤️ and ☕ by Basmala Azab Mohamed & Yousef Amr Elbish
 </p>
