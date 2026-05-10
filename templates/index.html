@@ -1,61 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Surface Defect Detection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steel Surface Defect Detection</title>
+    <meta name="description" content="AI-powered quality inspection for industrial steel surfaces">
+    <link rel="icon" type="image/png" href="/static/images/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <div class="animated-bg">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+        <span class="grid-lines"></span>
+    </div>
 
-<div class="container">
-    <h1>Surface Defect Classification</h1>
+    <header class="site-header fade-in">
+        <div class="brand">
+            <img src="/static/images/icon.png" alt="Steel Surface Defect Detection logo" class="brand-logo">
+            <div class="brand-text">
+                <h1 class="title-gradient">Steel Surface Defect Detection</h1>
+                <p>AI-powered quality inspection for industrial steel surfaces</p>
+            </div>
+        </div>
+    </header>
 
-    <form id="uploadForm">
-        <input type="file" id="imageInput" accept="image/*" required>
-        <button type="submit">Predict</button>
-    </form>
+    <main class="main-content">
+        <section class="hero fade-in">
+            <div class="hero-glow"></div>
+            <h2 class="hero-title">Industrial AI Vision for Surface Quality Control</h2>
+            <p class="hero-subtitle">Deploy deep learning-powered inspection to classify NEU steel defects with confidence-driven probability analytics and smart warning alerts.</p>
+        </section>
 
-    <img id="preview" style="display:none;">
+        <section class="feature-grid fade-in">
+            <article class="feature-card">
+                <img src="/static/images/ai.png" alt="AI inspection icon" class="feature-icon-img">
+                <h3>AI Inspection</h3>
+                <p>Robust CNN-based analysis for industrial-grade steel quality screening.</p>
+            </article>
+            <article class="feature-card">
+                <img src="/static/images/time.png" alt="Real-time prediction icon" class="feature-icon-img">
+                <h3>Real-time Prediction</h3>
+                <p>Fast model inference with confidence output for immediate decision making.</p>
+            </article>
+            <article class="feature-card">
+                <img src="/static/images/analysis.png" alt="Probability analysis icon" class="feature-icon-img">
+                <h3>Defect Probability Analysis</h3>
+                <p>Visual probability timeline across all six steel defect categories.</p>
+            </article>
+            <article class="feature-card">
+                <img src="/static/images/alarm.png" alt="Smart alarm icon" class="feature-icon-img">
+                <h3>Smart Alarm System</h3>
+                <p>Audio-visual alerting to trigger urgent manual quality inspection.</p>
+            </article>
+        </section>
 
-    <div id="result"></div>
-</div>
+        <section class="how-it-works glass-card fade-in">
+            <h3>How It Works</h3>
+            <div class="steps">
+                <div class="step-item">
+                    <span>1</span>
+                    <p>Upload surface image</p>
+                </div>
+                <div class="step-item">
+                    <span>2</span>
+                    <p>AI model analyzes defect</p>
+                </div>
+                <div class="step-item">
+                    <span>3</span>
+                    <p>Get prediction and probability report</p>
+                </div>
+            </div>
+        </section>
 
-<script>
-    const form = document.getElementById("uploadForm");
-    const imageInput = document.getElementById("imageInput");
-    const preview = document.getElementById("preview");
-    const result = document.getElementById("result");
+        <section class="grid-layout">
+            <article class="glass-card upload-card fade-in">
+                <h3>Prediction Panel</h3>
+                <form id="uploadForm" class="upload-form">
+                    <input type="file" id="imageInput" accept="image/*" required hidden>
+                    <div id="dropZone" class="drop-zone pulse-glow">
+                        <p class="drop-title">Drag & drop a steel surface image</p>
+                        <p class="drop-subtitle">or click to browse files</p>
+                    </div>
+                    <div class="file-meta">
+                        <span class="file-label">Selected File:</span>
+                        <span id="fileName" class="file-name">No file selected</span>
+                    </div>
+                    <div class="action-row">
+                        <button type="submit" id="predictButton" class="predict-btn">Predict Defect</button>
+                        <button type="button" id="clearButton" class="clear-btn">Clear</button>
+                    </div>
+                </form>
+                <div id="loadingState" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <span>Running model inference...</span>
+                </div>
+                <p class="alarm-note">Alarm will play after prediction if a defect is detected.</p>
+            </article>
 
-    imageInput.addEventListener("change", () => {
-        const file = imageInput.files[0];
-        if (file) {
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = "block";
-        }
-    });
+            <article class="glass-card preview-card fade-in">
+                <h3>Image Preview</h3>
+                <div class="preview-wrap">
+                    <img id="previewImage" alt="Uploaded steel surface preview">
+                    <p id="previewPlaceholder">No image selected yet.</p>
+                </div>
+            </article>
+        </section>
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+        <section class="glass-card result-card fade-in">
+            <h3>Prediction Result</h3>
+            <div id="resultContent" class="result-content">
+                <p class="muted">Upload an image and click <strong>Predict Defect</strong> to view classification results.</p>
+            </div>
 
-        const file = imageInput.files[0];
-        const formData = new FormData();
-        formData.append("file", file);
+            <div id="alertBox" class="alert-box hidden">
+                <p>Warning: Surface defect detected. Product requires inspection.</p>
+                <button id="muteAlarmButton" type="button" class="mute-btn">Mute Alarm</button>
+            </div>
+        </section>
 
-        result.innerHTML = "Predicting...";
+        <section class="glass-card probabilities-card fade-in">
+            <h3>Probability Analysis Panel</h3>
+            <div id="probabilityContainer" class="probability-container"></div>
+        </section>
+    </main>
 
-        const response = await fetch("/predict", {
-            method: "POST",
-            body: formData
-        });
+    <footer class="site-footer fade-in">
+        <p>Premium AI dashboard for steel defect intelligence, traceable confidence analytics, and inspection-first workflow.</p>
+    </footer>
 
-        const data = await response.json();
-
-        result.innerHTML = `
-            <h2>Result</h2>
-            <p><strong>Predicted Class:</strong> ${data.predicted_class}</p>
-            <p><strong>Confidence:</strong> ${data.confidence}%</p>
-        `;
-    });
-</script>
-
+    <audio id="alarmSound" src="/static/audio/industrial-alarm.mp3" preload="auto"></audio>
+    <script src="/static/script.js"></script>
 </body>
 </html>
