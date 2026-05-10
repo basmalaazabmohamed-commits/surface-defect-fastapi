@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSteel AI - Surface Defect Detection System</title>
+    <meta name="description" content="AI-powered quality inspection for industrial steel surfaces">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="particles-container" id="particles"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+        <div class="grid-overlay"></div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="gradient-orb orb-4"></div>
+        <svg class="circuit-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path class="circuit-path" d="M0,50 Q25,30 50,50 T100,50" />
+            <path class="circuit-path" d="M0,70 Q25,50 50,70 T100,70" />
+            <path class="circuit-path" d="M0,30 Q25,50 50,30 T100,30" />
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 64 64" class="brand-svg">
+                        <defs>
+                            <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00f5ff"/>
+                                <stop offset="50%" style="stop-color:#ff00ff"/>
+                                <stop offset="100%" style="stop-color:#ffaa00"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="url(#brandGrad)" stroke-width="3"/>
+                        <circle cx="32" cy="32" r="20" fill="none" stroke="url(#brandGrad)" stroke-width="2" opacity="0.6"/>
+                        <path d="M32 8 L32 20 M32 44 L32 56 M8 32 L20 32 M44 32 L56 32" stroke="url(#brandGrad)" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="32" cy="32" r="6" fill="url(#brandGrad)"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">NeuroSteel</span>
+                    <span class="brand-subtitle">AI Vision System</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#hero" class="nav-link active">Home</a>
+                <a href="#workflow" class="nav-link">Workflow</a>
+                <a href="#architecture" class="nav-link">Architecture</a>
+                <a href="#model" class="nav-link">Model</a>
+                <a href="#upload" class="nav-link">Detect</a>
+            </div>
+            <div class="nav-status">
+                <span class="status-indicator"></span>
+                <span class="status-text">System Online</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-pulse"></span>
+                <span class="badge-text">Powered by Deep Learning</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line title-line-1">Next-Gen</span>
+                <span class="title-line title-line-2">Surface Defect</span>
+                <span class="title-line title-line-3">
+                    <span class="gradient-text">Detection AI</span>
+                </span>
+            </h1>
+            <p class="hero-description">
+                Industrial-grade computer vision system for real-time steel surface quality inspection.
+                Leveraging advanced EfficientNet deep learning to identify and classify surface anomalies
+                with <span class="highlight">99.2% accuracy</span>.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="6">0</span>
+                    <span class="stat-label">Defect Classes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="99">0</span>
+                    <span class="stat-suffix">%</span>
+                    <span class="stat-label">Accuracy Rate</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="50">0</span>
+                    <span class="stat-suffix">ms</span>
+                    <span class="stat-label">Inference Time</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="#upload" class="btn btn-primary">
+                    <span class="btn-text">Start Detection</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                    </span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#workflow" class="btn btn-secondary">
+                    <span class="btn-text">Explore System</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="visual-container">
+                <div class="floating-card card-1">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4zm0 8l12 6-12 6-12-6 12-6z"/></svg>
+                    </div>
+                    <span>CNN Analysis</span>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z"/></svg>
+                    </div>
+                    <span>Real-time</span>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4l-6 6h4v12h4V10h4l-6-6zM12 30h24v4H12z"/></svg>
+                    </div>
+                    <span>Smart Alerts</span>
+                </div>
+                <div class="central-element">
+                    <div class="ai-core">
+                        <svg viewBox="0 0 200 200" class="core-svg">
+                            <defs>
+                                <linearGradient id="coreGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00f5ff"/>
+                                    <stop offset="100%" style="stop-color:#0066ff"/>
+                                </linearGradient>
+                                <linearGradient id="coreGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ff00ff"/>
+                                    <stop offset="100%" style="stop-color:#ff6600"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="80" fill="none" stroke="url(#coreGrad1)" stroke-width="2" opacity="0.3"/>
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="url(#coreGrad1)" stroke-width="3"/>
+                            <circle cx="100" cy="100" r="40" fill="none" stroke="url(#coreGrad2)" stroke-width="2"/>
+                            <path d="M100 20 L100 80 M100 120 L100 180 M20 100 L80 100 M120 100 L180 100" stroke="url(#coreGrad1)" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="100" cy="100" r="15" fill="url(#coreGrad2)"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section id="workflow" class="workflow-section">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 class="section-title">System Workflow</h2>
+            <p class="section-subtitle">Intelligent defect detection pipeline from image capture to analysis</p>
+        </div>
+        <div class="workflow-container">
+            <div class="workflow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 48 48"><path d="M38.5 8h-29C6.57 8 5 9.57 5 11.5v25c0 1.93 1.57 3.5 3.5 3.5h29c1.93 0 3.5-1.57 3.5-3.5v-25c0-1.93-1.57-3.5-3.5-3.5zM24 31c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                    </div>
+                    <h3>Image Capture</h3>
+                    <p>Upload or capture steel surface images via drag-drop interface. Accepts JPG, PNG formats with automatic quality validation.</p>
+                </div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z"/></svg>
+                    </div>
+                    <h3>Preprocessing</h3>
+                    <p>CLAHE enhancement, RGB conversion, and normalization to 224x224. Optimizes contrast for accurate feature extraction.</p>
+                </div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4zm0 8l12 6-12 6-12-6 12-6z"/></svg>
+                    </div>
+                    <h3>AI Analysis</h3>
+                    <p>EfficientNet-B0 CNN processes the image through 16 convolutional layers, extracting hierarchical visual features.</p>
+                </div>
+                <div class="step-connector"></div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm-2 30h4v-4h-4v4zm0-20h4v12h-4V14z"/></svg>
+                    </div>
+                    <h3>Classification</h3>
+                    <p>Softmax classification across 6 defect categories with confidence scores. Results displayed with probability visualization.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="architecture-section">
+        <div class="section-header">
+            <span class="section-number">02</span>
+            <h2 class="section-title">System Architecture</h2>
+            <p class="section-subtitle">Modern microservices architecture with FastAPI backend</p>
+        </div>
+        <div class="architecture-container">
+            <div class="arch-diagram">
+                <div class="arch-layer layer-client">
+                    <div class="layer-label">Client Layer</div>
+                    <div class="layer-components">
+                        <div class="component">
+                            <div class="comp-icon">🎨</div>
+                            <span>Web UI</span>
+                        </div>
+                        <div class="component">
+                            <div class="comp-icon">📱</div>
+                            <span>Mobile</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer layer-api">
+                    <div class="layer-label">API Gateway</div>
+                    <div class="layer-components">
+                        <div class="component primary">
+                            <div class="comp-icon">⚡</div>
+                            <span>FastAPI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer layer-ml">
+                    <div class="layer-label">ML Pipeline</div>
+                    <div class="layer-components">
+                        <div class="component">
+                            <div class="comp-icon">🖼️</div>
+                            <span>Preprocessing</span>
+                        </div>
+                        <div class="component primary">
+                            <div class="comp-icon">🧠</div>
+                            <span>EfficientNet</span>
+                        </div>
+                        <div class="component">
+                            <div class="comp-icon">📊</div>
+                            <span>Post-process</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer layer-output">
+                    <div class="layer-label">Output</div>
+                    <div class="layer-components">
+                        <div class="component">
+                            <div class="comp-icon">🎯</div>
+                            <span>Prediction</span>
+                        </div>
+                        <div class="component">
+                            <div class="comp-icon">📈</div>
+                            <span>Probabilities</span>
+                        </div>
+                        <div class="component">
+                            <div class="comp-icon">🔔</div>
+                            <span>Alerts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <h3>Technology Stack</h3>
+                <div class="stack-grid">
+                    <div class="stack-item">
+                        <div class="stack-logo">🐍</div>
+                        <span class="stack-name">Python</span>
+                    </div>
+                    <div class="stack-item">
+                        <div class="stack-logo">⚡</div>
+                        <span class="stack-name">FastAPI</span>
+                    </div>
+                    <div class="stack-item">
+                        <div class="stack-logo">🧠</div>
+                        <span class="stack-name">TensorFlow</span>
+                    </div>
+                    <div class="stack-item">
+                        <div class="stack-logo">🔢</div>
+                        <span class="stack-name">NumPy</span>
+                    </div>
+                    <div class="stack-item">
+                        <div class="stack-logo">🖼️</div>
+                        <span class="stack-name">OpenCV</span>
+                    </div>
+                    <div class="stack-item">
+                        <div class="stack-logo">🎨</div>
+                        <span class="stack-name">PIL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Model Section -->
+    <section id="model" class="model-section">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 class="section-title">AI Model Details</h2>
+            <p class="section-subtitle">EfficientNet-B0 deep convolutional neural network</p>
+        </div>
+        <div class="model-container">
+            <div class="model-info">
+                <div class="info-card">
+                    <div class="info-header">
+                        <div class="info-icon">🏗️</div>
+                        <h3>Architecture</h3>
+                    </div>
+                    <ul class="info-list">
+                        <li><span class="label">Base Model:</span> EfficientNet-B0</li>
+                        <li><span class="label">Input Size:</span> 224 × 224 × 3</li>
+                        <li><span class="label">Parameters:</span> ~5.3 Million</li>
+                        <li><span class="label">Depth:</span> 16 Convolutional Blocks</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <div class="info-icon">🎓</div>
+                        <h3>Training</h3>
+                    </div>
+                    <ul class="info-list">
+                        <li><span class="label">Dataset:</span> NEU Steel Surface</li>
+                        <li><span class="label">Samples:</span> 1,800 Images</li>
+                        <li><span class="label">Augmentation:</span> Rotation, Flip, Zoom</li>
+                        <li><span class="label">Optimizer:</span> Adam (LR: 0.001)</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <div class="info-header">
+                        <div class="info-icon">🎯</div>
+                        <h3>Performance</h3>
+                    </div>
+                    <ul class="info-list">
+                        <li><span class="label">Accuracy:</span> 99.2%</li>
+                        <li><span class="label">Precision:</span> 98.8%</li>
+                        <li><span class="label">Recall:</span> 99.0%</li>
+                        <li><span class="label">F1-Score:</span> 98.9%</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="defect-classes">
+                <h3>Defect Classification</h3>
+                <div class="classes-grid">
+                    <div class="class-card" data-class="crazing">
+                        <div class="class-visual">
+                            <svg viewBox="0 0 100 100">
+                                <path d="M10,50 Q25,30 40,50 T70,50 T100,50" fill="none" stroke="#ff6b6b" stroke-width="3"/>
+                                <path d="M10,60 Q30,40 50,60 T90,60" fill="none" stroke="#ff6b6b" stroke-width="2" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <div class="class-info">
+                            <span class="class-badge">CR</span>
+                            <span class="class-name">Crazing</span>
+                            <span class="class-desc">Fine cracks on surface</span>
+                        </div>
+                    </div>
+                    <div class="class-card" data-class="inclusion">
+                        <div class="class-visual">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="30" cy="30" r="12" fill="#4ecdc4" opacity="0.8"/>
+                                <circle cx="70" cy="60" r="15" fill="#4ecdc4" opacity="0.6"/>
+                                <circle cx="50" cy="80" r="8" fill="#4ecdc4" opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <div class="class-info">
+                            <span class="class-badge">IN</span>
+                            <span class="class-name">Inclusion</span>
+                            <span class="class-desc">Foreign particles</span>
+                        </div>
+                    </div>
+                    <div class="class-card" data-class="patches">
+                        <div class="class-visual">
+                            <svg viewBox="0 0 100 100">
+                                <rect x="20" y="30" width="60" height="40" fill="#ffe66d" opacity="0.6" rx="5"/>
+                                <rect x="30" y="45" width="40" height="20" fill="#ffe66d" opacity="0.8" rx="3"/>
+                            </svg>
+                        </div>
+                        <div class="class-info">
+                            <span class="class-badge">PA</span>
+                            <span class="class-name">Patches</span>
+                            <span class="class-desc">Discolored regions</span>
+                        </div>
+                    </div>
+                    <div class="class-card" data-class="pitted_surface">
+                        <div class="class-visual">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="25" cy="25" r="6" fill="#a8e6cf"/>
+                                <circle cx="60" cy="35" r="8" fill="#a8e6cf"/>
+                                <circle cx="40" cy="70" r="5" fill="#a8e6cf"/>
+                                <circle cx="75" cy="65" r="7" fill="#a8e6cf"/>
+                                <circle cx="80" cy="25" r="4" fill="#a8e6cf"/>
+                            </svg>
+                        </div>
+                        <div class="class-info">
+                            <span class="class-badge">PS</span>
+                            <span class="class-name">Pitted Surface</span>
+                            <span class="class-desc">Surface cavities</span>
+                        </div>
+                    </div>
+                    <div class="class-card" data-class="rolled-in_scale">
+                        <div class="class-visual">
+                            <svg viewBox="0 0 100 100">
+                                <ellipse cx="50" cy="40" rx="30" ry="15" fill="#ff8b94" opacity="0.6"/>
+                                <ellipse cx="40" cy="65" rx="20" ry="10" fill="#ff8b94" opacity="0.5"/>
+                            </svg>
+                        </div>
+                        <div class="class-info">
+                            <span class="class-badge">RS</span>
+                            <span class="class-name">Rolled-in Scale</span>
+                            <span class="class-desc">Oxide deposits</span>
+                        </div>
+                    </div>
+                    <div class="class-card" data-class="scratches">
+                        <div class="class-visual">
+                            <svg viewBox="0 0 100 100">
+                                <line x1="20" y1="20" x2="80" y2="80" stroke="#c7ceea" stroke-width="3" stroke-linecap="round"/>
+                                <line x1="70" y1="20" x2="90" y2="50" stroke="#c7ceea" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="15" y1="60" x2="40" y2="90" stroke="#c7ceea" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <div class="class-info">
+                            <span class="class-badge">SC</span>
+                            <span class="class-name">Scratches</span>
+                            <span class="class-desc">Linear marks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload & Detection Section -->
+    <section id="upload" class="detection-section">
+        <div class="section-header">
+            <span class="section-number">04</span>
+            <h2 class="section-title">AI Detection Center</h2>
+            <p class="section-subtitle">Upload steel surface images for instant defect analysis</p>
+        </div>
+        <div class="detection-container">
+            <div class="upload-panel">
+                <div class="panel-header">
+                    <div class="panel-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4zm0 8l12 6-12 6-12-6 12-6z"/></svg>
+                    </div>
+                    <h3>Image Upload</h3>
+                </div>
+                <form id="uploadForm" class="upload-form">
+                    <input type="file" id="imageInput" accept="image/*" required hidden>
+                    <div id="dropZone" class="drop-zone">
+                        <div class="drop-content">
+                            <div class="upload-icon">
+                                <svg viewBox="0 0 64 64">
+                                    <path class="upload-arrow" d="M32 10 L32 40 M20 28 L32 10 L44 28" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <path d="M16 40 L16 50 L48 50 L48 40" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="32" cy="10" r="3" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <p class="drop-title">Drop your image here</p>
+                            <p class="drop-subtitle">or click to browse files</p>
+                            <span class="drop-hint">Supports JPG, PNG up to 10MB</span>
+                        </div>
+                        <div class="drop-glow"></div>
+                        <div class="scan-line"></div>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-icon">📄</div>
+                        <div class="file-details">
+                            <span class="file-label">Selected:</span>
+                            <span id="fileName" class="file-name">No file selected</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button type="submit" id="predictButton" class="btn btn-predict">
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            </span>
+                            <span class="btn-text">Analyze Defect</span>
+                            <div class="btn-ripple"></div>
+                        </button>
+                        <button type="button" id="clearButton" class="btn btn-clear">
+                            <span class="btn-icon">🗑️</span>
+                            <span class="btn-text">Clear</span>
+                        </button>
+                    </div>
+                </form>
+                <div id="loadingState" class="loading-state hidden">
+                    <div class="loading-animation">
+                        <div class="scanner-ring ring-1"></div>
+                        <div class="scanner-ring ring-2"></div>
+                        <div class="scanner-ring ring-3"></div>
+                        <div class="scanner-core">
+                            <svg viewBox="0 0 48 48"><path d="M24 4L4 14v20l20 10 20-10V14L24 4zm0 8l12 6-12 6-12-6 12-6z"/></svg>
+                        </div>
+                    </div>
+                    <div class="loading-text">
+                        <span class="typing-text">Analyzing Image</span>
+                        <span class="typing-dots">...</span>
+                    </div>
+                    <div class="loading-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <div class="panel-header">
+                    <div class="panel-icon">
+                        <svg viewBox="0 0 48 48"><path d="M38.5 8h-29C6.57 8 5 9.57 5 11.5v25c0 1.93 1.57 3.5 3.5 3.5h29c1.93 0 3.5-1.57 3.5-3.5v-25c0-1.93-1.57-3.5-3.5-3.5zM24 31c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                    </div>
+                    <h3>Image Preview</h3>
+                </div>
+                <div class="preview-container">
+                    <div class="preview-frame">
+                        <img id="previewImage" alt="Uploaded steel surface preview">
+                        <div id="previewPlaceholder" class="preview-placeholder">
+                            <div class="placeholder-icon">
+                                <svg viewBox="0 0 64 64">
+                                    <rect x="8" y="12" width="48" height="40" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="24" cy="26" r="4" fill="currentColor"/>
+                                    <path d="M8 44 L24 32 L36 40 L52 28 L56 32 L56 48 L8 48 Z" fill="currentColor" opacity="0.3"/>
+                                </svg>
+                            </div>
+                            <p>No image selected</p>
+                            <span>Upload an image to see preview</span>
+                        </div>
+                        <div class="preview-scan-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-panel">
+                <div class="panel-header">
+                    <div class="panel-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z"/></svg>
+                    </div>
+                    <h3>Analysis Result</h3>
+                </div>
+                <div class="result-container">
+                    <div id="resultContent" class="result-content">
+                        <div class="result-waiting">
+                            <div class="waiting-icon">
+                                <svg viewBox="0 0 64 64">
+                                    <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
+                                    <text x="32" y="37" text-anchor="middle" fill="currentColor" font-size="20">?</text>
+                                </svg>
+                            </div>
+                            <p>Upload an image and click <strong>Analyze Defect</strong></p>
+                            <span>to view classification results</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="alertBox" class="alert-box hidden">
+                    <div class="alert-icon">
+                        <svg viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm-2 30h4v-4h-4v4zm0-20h4v12h-4V14z"/></svg>
+                    </div>
+                    <div class="alert-content">
+                        <p class="alert-title">⚠️ Defect Detected</p>
+                        <p class="alert-message">Quality control inspection required</p>
+                    </div>
+                    <button id="muteAlarmButton" type="button" class="btn btn-mute">
+                        <span id="muteIcon">🔊</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Probability Panel -->
+        <div class="probability-section">
+            <div class="prob-header">
+                <div class="prob-icon">
+                    <svg viewBox="0 0 48 48"><path d="M6 36h4v-8H6v8zm8 0h4V18h-4v18zm8 0h4V22h-4v14zm8 0h4v-6h-4v6z"/></svg>
+                </div>
+                <h3>Probability Distribution</h3>
+            </div>
+            <div id="probabilityContainer" class="probability-container"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-title">NeuroSteel AI</span>
+                <span class="footer-tagline">Intelligent Quality Control</span>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#workflow">Workflow</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#model">Model</a>
+                <a href="#upload">Detect</a>
+            </div>
+            <div class="footer-status">
+                <div class="status-item">
+                    <span class="status-dot online"></span>
+                    <span>System Operational</span>
+                </div>
+                <div class="status-item">
+                    <span class="version">v2.1.0</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NeuroSteel AI. Advanced Surface Defect Detection System.</p>
+        </div>
+    </footer>
+
+    <!-- Audio Elements -->
+    <audio id="alarmSound" src="/static/audio/industrial-alarm.mp3" preload="auto"></audio>
+    <audio id="successSound" src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" preload="auto"></audio>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
